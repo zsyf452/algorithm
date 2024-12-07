@@ -3,8 +3,8 @@
 int arr[] = {1,-2,0,3};
 int n = sizeof(arr)/sizeof(int);
 
-int maximumSum();
 void show();
+int maximumSum();
 void fastSort(int left,int right);
 
 int main()

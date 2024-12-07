@@ -1,8 +1,0 @@
-[
-{
-  "directory": "E:/code/c++/vscode_file/algorithm/build",
-  "command": "E:\\environment\\c++\\mingw\\bin\\c++.exe -g -o CMakeFiles\\test.dir\\main.cpp.obj -c E:\\code\\c++\\vscode_file\\algorithm\\main.cpp",
-  "file": "E:\\code\\c++\\vscode_file\\algorithm\\main.cpp",
-  "output": "CMakeFiles\\test.dir\\main.cpp.obj"
-}
-]
