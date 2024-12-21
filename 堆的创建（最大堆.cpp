@@ -9,7 +9,7 @@ inline int getFather(int i){return i/2;}
 
 void exchange(int i,int t);
 void show();
-void up(int i);
+void down(int i);
 void init();
 
 int main()
@@ -33,7 +33,7 @@ int main()
 
 
 
-void up(int i)
+void down(int i)
 {
     int l = getLeft(i);
     int r = getRight(i);
@@ -50,7 +50,7 @@ void up(int i)
     if(t != i)
     {
         exchange(i,t);
-        up(t);
+        down(t);
     }    
 
 }
@@ -59,7 +59,7 @@ void init()
 {
     for (int i = size/2; i >= 1; i--)
     {
-        up(i);
+        down(i);
     }
     
 
