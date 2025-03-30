@@ -3,12 +3,15 @@
 int book[100];
 int len = 0;
 int *e;
-
+int count = 0;
 
 void func(int arr[],int step)
 {
     if(step == len)
     {
+        count++;
+        std::cout<<count<<": ";
+
         for(int i = 0;i<len;i++)
             std::cout<<e[i]<<' ';
         std::cout<<'\n';
@@ -33,7 +36,7 @@ void func(int arr[],int step)
 
 int main()
 {
-    int arr[] = {1,2,3,4};
+    int arr[] = {0,1,2,3,4};
 
     len = sizeof(arr)/sizeof(int);
     e = new int[len];
