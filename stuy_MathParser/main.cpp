@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Parser.h"
-
+#include "Fraction.h"
 
 
 int main()
@@ -17,7 +17,9 @@ int main()
     // std::vector<Token>tokens =  Parser::lexer("-sqrt(9)-pow(2,3)");
     // std::vector<Token>tokens =  Parser::lexer("3.14+0.1");
     // std::vector<Token>tokens =  Parser::lexer("sin(60*3.14/180.0)");
-    std::vector<Token>tokens =  Parser::lexer("A(4,2)+C(4,2)");
+    // std::vector<Token>tokens =  Parser::lexer("A(4,2)+C(4,2)");
+    std::vector<Token>tokens =  Parser::lexer("-0.6*35+27");
+
 
     Parser p(tokens);
     ASTNode *root = p.parser();
@@ -57,5 +59,10 @@ int main()
     
     // }
    
+
+
+    // Fraction t(2.6);
+    // std::cout<<t.isDecimal(24);
+
     return 0;
 }
