@@ -15,7 +15,7 @@ struct Quenue
 void func24(const std::array<int ,4> nums)
 {
     int count = 0;
-    Quenue quenue[100000];
+    Quenue quenue[10000];
     int begin = 0,end = 4;
 
     for (int i = 0; i < 4; i++)
@@ -83,7 +83,7 @@ void func24(const std::array<int ,4> nums)
                 if(quenue[end-1].data == 24 && quenue[end-1].mark == 0b1111)
                 {
                     
-                    std::cout<<++count << ": 找到解: " << describe << std::endl;
+                    std::cout<<++count << ": " << describe << std::endl;
                 }
 
             }
@@ -101,7 +101,8 @@ void func24(const std::array<int ,4> nums)
 int main()
 {
 
-    std::array<int,4> nums = {1,2,3,7};
+
+    std::array<int,4> nums = {1,2,3,8};//11
     func24(nums);
 
     return 0;
