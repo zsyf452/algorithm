@@ -1,113 +1,108 @@
 #include <iostream>
-#include <array>
 #include <vector>
-#include <algorithm>
-#include <stack>
+#include <array>
 #include <string>
 
-struct note
+struct Quenue
 {
     int data;
-    int prev;             
-    std::string describe;  
-    int used_mask;
+    int last;
+    int mark;
+    std::string describe; 
 };
 
 
-
-
-
-
-void solve24_bfs(const std::array<int,4> &nums)
+void func24(const std::array<int ,4> nums)
 {
-    note queue[1000];
-    int begin=0,end=1;
-   
-    int next_step[4][2] = {{1,0},{-1,0},{0,1},{0,-1}};
-    // auto max_it = std::max_element(nums.begin(), nums.end());
-    // std::vector<bool> book(*max_it,false);
+    int count = 0;
+    Quenue quenue[100000];
+    int begin = 0,end = 4;
 
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < 4; i++)
     {
-        queue[end++] = {nums[i], -1, std::to_string(nums[i]), 1 << i};
+        quenue[i] = {nums[i],-1,1<<i,std::to_string(nums[i])};
     }
-
-    while(begin < end)
+    
+    while (begin < end)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < end; i++)
         {
-            if ((queue[begin].used_mask >> i) & 1) continue;
-            for(int j=0;j<4;j++)
+            const Quenue &curr = quenue[begin];
+
+            if( quenue[i].mark & curr.mark || begin == i)
+                continue;
+
+            for (int j = 0; j < 6; j++)
             {
                 int res = 0;
                 std::string describe = "";
                 switch (j)
                 {
                 case 0:
-                    res = queue[begin].data +  nums[i];
-                    describe = std::to_string(queue[begin].data) + "+" + std::to_string(nums[i]) + "=" + std::to_string(res);
+                    res = curr.data + quenue[i].data;
+                    describe = "(" + curr.describe + "+" + quenue[i].describe + ")";
                     break;
                 case 1:
-                    res = queue[begin].data -  nums[i];
-                    describe = std::to_string(queue[begin].data) + "-" + std::to_string(nums[i]) + "=" + std::to_string(res);
+                    res = curr.data - quenue[i].data;
+                    describe = "(" + curr.describe + "-" + quenue[i].describe + ")";
                     break;
                 case 2:
-                    res = queue[begin].data * nums[i];
-                    describe = std::to_string(queue[begin].data) + "*" + std::to_string(nums[i]) + "=" + std::to_string(res);
+                    res = curr.data * quenue[i].data;
+                    describe = "(" + curr.describe + "*" + quenue[i].describe + ")";
+                    
                     break;
                 case 3:
+                    if(quenue[i].data == 0 || curr.data % quenue[i].data != 0)
+                        continue;
+                    
+                    res = curr.data / quenue[i].data;
+                    describe = "(" + curr.describe + "/" + quenue[i].describe  + ")";
+                    
+                    break;
                 
-                    if (nums[i] == 0 || queue[begin].data % nums[i] != 0) continue;                
-                    res = queue[begin].data / nums[i];
-                    describe = std::to_string(queue[begin].data) + "/" + std::to_string(nums[i]) + "=" + std::to_string(res);
+                case 4:
+                    if(curr.data == 0 ||  quenue[i].data % curr.data != 0)
+                        continue;
+                    
+                    res = quenue[i].data / curr.data;
+                    describe = "(" + quenue[i].describe + "/" + curr.describe + ")";
+                    break;
+
+                case 5:
+                    res = quenue[i].data - curr.data ;
+                    describe = "(" + quenue[i].describe + "-" + curr.describe + ")";
                     break;
 
                 default:
                     break;
                 }
 
-            
-                // if(book[])
+                quenue[end] = {res ,begin ,quenue[i].mark|curr.mark ,describe};
+                end++;
 
-                queue[end++] = {res, begin, describe, queue[begin].used_mask | (1 << i)};
-
-                if(queue[end-1].data == 24 && (queue[end-1].used_mask == 0b1111))
+                if(quenue[end-1].data == 24 && quenue[end-1].mark == 0b1111)
                 {
-                    std::vector<std::string> temp;
-                    int index = end-1;
-                    while(index != -1)
-                    {
-                        
-                        temp.push_back(queue[index].describe);
-                        index = queue[index].prev;
-                    }
-                    temp.pop_back();
-
-                    int n = temp.size();
-                    for(int w = n-1;w >= 0 ;w--)
-                    {
-                        std::cout<<temp[w]<<std::endl;   
-                    }
                     
-                    std::cout<<"--------------------------------------------\n";   
-                    
+                    std::cout<<++count << ": 找到解: " << describe << std::endl;
                 }
 
             }
             
-            // process.pop();
+
         }
+        
         begin++;
     }
+    
 }
+
 
 
 int main()
 {
-    std::array<int ,4> nums = {11,3,1,8};
 
-    solve24_bfs(nums);
+    std::array<int,4> nums = {1,2,3,7};
+    func24(nums);
 
-    // std::cout<<queue[end-1].step;
     return 0;
 }
